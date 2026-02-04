@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sekolah ABA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0d0a13;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 600;
+            margin-bottom: 60px;
+            font-size: 2.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            max-width: 90%;
+            padding: 0 20px;
+        }
+        
+        .content-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            z-index: 2;
+            margin-top: -30px;
+        }
+        
+        .logoaba {
+            position: absolute;
+            width: 45%;
+            height: auto;
+            opacity: 0.2;
+            z-index: 1;
+            filter: grayscale(30%);
+        }
+        
+        .button-container {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            z-index: 3;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .btn-masuk {
+            padding: 25px 60px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            min-width: 200px;
+            text-align: center;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            letter-spacing: 1px;
+        }
+        
+        .btn-masuk::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.8s ease;
+            z-index: -1;
+        }
+        
+        .btn-masuk:hover::after {
+            left: 100%;
+        }
+        
+        .btn-masuk:hover {
+            transform: translateY(-8px) scale(1.08);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, #27ae60, #219955);
+        }
+        
+        .btn-masuk:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s ease;
+        }
+        
+        .btn-masuk.loading {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        .bg-circle {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(41, 128, 185, 0.1);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: rgba(52, 152, 219, 0.08);
+            bottom: -50px;
+            right: 10%;
+            animation-delay: 5s;
+        }
+        
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            background: rgba(155, 89, 182, 0.05);
+            top: 30%;
+            right: -50px;
+            animation-delay: 10s;
+        }
+        
+        .circle-4 {
+            width: 180px;
+            height: 180px;
+            background: rgba(46, 204, 113, 0.07);
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 7s;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(10px) rotate(240deg);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        
+        h1,
+        .logoaba,
+        .button-container {
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+        
+        .button-container {
+            animation-delay: 0.6s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        /* Styling untuk halaman baru */
+        
+        .new-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e6f7ff, #f0f8ff);
+            z-index: 1000;
+            display: none;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            animation: pageTransitionIn 1s ease-out forwards;
+            padding-top: 100px;
+            overflow-y: auto;
+            padding-bottom: 50px;
+        }
+        /* Logo di pojok kiri atas halaman kedua */
+        
+        .new-page-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: white;
+            padding: 8px;
+            z-index: 1002;
+            animation: logoSlideIn 0.8s ease-out forwards;
+        }
+        
+        @keyframes logoSlideIn {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        /* Tombol kembali di pojok kanan atas */
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            z-index: 1002;
+            animation: buttonSlideIn 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes buttonSlideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, #c0392b, #a93226);
+        }
+        
+        .back-button:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+        /* Lingkaran background untuk halaman baru - Warna berbeda */
+        
+        .new-page-circle {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            animation: newFloat 20s infinite ease-in-out;
+        }
+        
+        .new-circle-1 {
+            width: 350px;
+            height: 350px;
+            background: rgba(230, 126, 34, 0.15);
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+        
+        .new-circle-2 {
+            width: 250px;
+            height: 250px;
+            background: rgba(231, 76, 60, 0.12);
+            bottom: -80px;
+            right: 15%;
+            animation-delay: 3s;
+        }
+        
+        .new-circle-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(155, 89, 182, 0.1);
+            top: 40%;
+            left: -80px;
+            animation-delay: 7s;
+        }
+        
+        .new-circle-4 {
+            width: 220px;
+            height: 220px;
+            background: rgba(52, 152, 219, 0.12);
+            bottom: 30%;
+            right: -70px;
+            animation-delay: 5s;
+        }
+        
+        .new-circle-5 {
+            width: 180px;
+            height: 180px;
+            background: rgba(46, 204, 113, 0.1);
+            top: 15%;
+            right: 20%;
+            animation-delay: 10s;
+        }
+        
+        @keyframes newFloat {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-25px) rotate(90deg) scale(1.05);
+            }
+            50% {
+                transform: translateY(15px) rotate(180deg) scale(0.95);
+            }
+            75% {
+                transform: translateY(-15px) rotate(270deg) scale(1.02);
+            }
+        }
+        /* Container untuk konten profil sekolah */
+        
+        .profile-container {
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 20px auto;
+            animation: contentFadeIn 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes contentFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .school-name {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .school-location {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .update-info {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .profile-content {
+            line-height: 1.8;
+            color: #34495e;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+        
+        .info-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            background: #f1f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #2ecc71;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #34495e;
+        }
+        
+        .vision-mission {
+            background: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        /* STYLE UNTUK HIGHLIGHT */
+        
+        .highlight {
+            background: #fbf8f8;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #a1118c;
+        }
+        
+        .highlight-text {
+            font-size: 1.1rem;
+            color: #050404;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        /* STYLE UNTUK HIGHLIGHT2 - MIRIP HIGHLIGHT */
+        
+        .highlight2 {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 25px;
+            border-left: 4px solid #f00808;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .highlight-text2 {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .highlight3 {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 25px;
+            border-left: 4px solid #edf109;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .highlight-text3 {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .highlight4 {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 25px;
+            border-left: 4px solid #01f843;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .highlight-text4 {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        /* STYLE UNTUK TABEL INFORMASI LENGKAP */
+        
+        .table-container {
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 20px auto 50px;
+            animation: contentFadeIn 1s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+        
+        .table-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .table-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #2ecc71;
+        }
+        
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            animation: tableFadeIn 1s ease-out 1s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes tableFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .info-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: bold;
+            padding: 18px 15px;
+            text-align: left;
+            font-size: 1.1rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-table th:last-child {
+            border-right: none;
+        }
+        
+        .info-table th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #2ecc71;
+        }
+        
+        .info-table tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .info-table tr:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-table td {
+            padding: 16px 15px;
+            border-right: 1px solid #eaeaea;
+            font-size: 1rem;
+            color: #34495e;
+            transition: all 0.3s ease;
+        }
+        
+        .info-table td:first-child {
+            font-weight: bold;
+            background-color: #f1f8ff;
+            color: #2c3e50;
+            width: 40%;
+        }
+        
+        .info-table td:last-child {
+            border-right: none;
+        }
+        
+        .info-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .info-table tr:nth-child(even):hover {
+            background-color: #f0f7ff;
+        }
+        
+        .info-table tr:nth-child(odd) td:first-child {
+            background-color: #e8f4fc;
+        }
+        
+        .info-table tr:nth-child(even) td:first-child {
+            background-color: #e1f0fa;
+        }
+        /* Efek border khusus untuk baris tertentu */
+        
+        .info-table tr:nth-child(4),
+        .info-table tr:nth-child(7),
+        .info-table tr:nth-child(11) {
+            border-bottom: 2px solid #3498db;
+        }
+        /* STYLE UNTUK TOMBOL KIRIM EMAIL LANGSUNG */
+        
+        .email-button-container {
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 20px auto;
+            animation: contentFadeIn 1s ease-out 1.2s forwards;
+            opacity: 0;
+            text-align: center;
+        }
+        
+        .email-button-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .email-button-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #2ecc71;
+        }
+        
+        .email-button-description {
+            color: #34495e;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .btn-kirim-email {
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 8px 16px rgba(52, 152, 219, 0.3);
+            margin-top: 10px;
+            min-width: 250px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-kirim-email::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.8s ease;
+            z-index: -1;
+        }
+        
+        .btn-kirim-email:hover::after {
+            left: 100%;
+        }
+        
+        .btn-kirim-email:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 24px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #2980b9, #1f6399);
+        }
+        
+        .btn-kirim-email:active {
+            transform: translateY(0) scale(1);
+            box-shadow: 0 5px 10px rgba(52, 152, 219, 0.2);
+        }
+        
+        .email-notice {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        /* Responsive table */
+        
+        @media (max-width: 768px) {
+            .info-table {
+                display: block;
+                overflow-x: auto;
+            }
+            .info-table th,
+            .info-table td {
+                padding: 12px 10px;
+                font-size: 0.95rem;
+                min-width: 150px;
+            }
+            .table-title {
+                font-size: 1.5rem;
+            }
+            .table-container {
+                padding: 25px;
+                margin: 15px auto 30px;
+            }
+            .email-button-container {
+                padding: 25px;
+                margin: 15px auto;
+            }
+            .email-button-title {
+                font-size: 1.5rem;
+            }
+            .email-button-description {
+                font-size: 1rem;
+            }
+            .btn-kirim-email {
+                padding: 18px 40px;
+                font-size: 1.3rem;
+                min-width: 220px;
+            }
+        }
+        
+        @keyframes pageTransitionIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pageTransitionOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.1);
+            }
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+            }
+            .content-container {
+                margin-top: 0;
+            }
+            .logoaba {
+                width: 70%;
+            }
+            .btn-masuk {
+                padding: 22px 50px;
+                font-size: 1.6rem;
+                min-width: 180px;
+            }
+            .new-page-logo {
+                width: 60px;
+                height: 60px;
+                top: 15px;
+                left: 15px;
+            }
+            .back-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+                top: 15px;
+                right: 15px;
+            }
+            .profile-container {
+                padding: 25px;
+                margin: 15px;
+            }
+            .school-name {
+                font-size: 2rem;
+            }
+            .school-location {
+                font-size: 1.3rem;
+            }
+            .profile-content {
+                font-size: 1rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .highlight,
+            .highlight2 {
+                padding: 20px;
+                margin-top: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 30px;
+            }
+            .logoaba {
+                width: 80%;
+            }
+            .btn-masuk {
+                padding: 20px 40px;
+                font-size: 1.4rem;
+                min-width: 160px;
+            }
+            .new-page-logo {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                left: 10px;
+            }
+            .back-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+                top: 10px;
+                right: 10px;
+            }
+            .profile-container {
+                padding: 20px;
+                margin: 10px;
+            }
+            .school-name {
+                font-size: 1.8rem;
+            }
+            .school-location {
+                font-size: 1.1rem;
+            }
+            .profile-content {
+                font-size: 0.95rem;
+            }
+            .highlight,
+            .highlight2 {
+                padding: 15px;
+                margin-top: 15px;
+            }
+            .btn-kirim-email {
+                padding: 16px 30px;
+                font-size: 1.2rem;
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Halaman Pertama -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+    <div class="bg-circle circle-4"></div>
+
+    <h1>Selamat Datang di Sekolah Abdurahman Bin Auf</h1>
+
+    <div class="content-container">
+        <div class="button-container">
+            <button class="btn-masuk">MASUK</button>
+        </div>
+    </div>
+
+    <!-- Halaman Kedua -->
+    <div class="new-page" id="newPage">
+        <div class="new-page-circle new-circle-1"></div>
+        <div class="new-page-circle new-circle-2"></div>
+        <div class="new-page-circle new-circle-3"></div>
+        <div class="new-page-circle new-circle-4"></div>
+        <div class="new-page-circle new-circle-5"></div>
+
+        <img src="Gambar.ABA.jpg" alt="Logo ABA" class="new-page-logo">
+        <button class="back-button" id="backButton">KEMBALI</button>
+
+        <div class="profile-container">
+            <div class="profile-header">
+                <p class="school-location">Profil & Data Sekolah SDIT ABDURRAHMAN BIN AUF, Kab. Bekasi, Jawa Barat</p>
+            </div>
+
+            <div class="profile-content">
+                <p>SDIT ABDURRAHMAN BIN AUF merupakan salah satu sekolah jenjang SD berstatus Swasta yang berada di wilayah Kec. Tambun Utara, Kab. Bekasi, Jawa Barat. SDIT ABDURRAHMAN BIN AUF didirikan pada tanggal 26 Februari 2013 dengan Nomor SK Pendirian
+                    AHU-689.AH.01.04. Tahun 2013 yang berada dalam naungan Kementerian Pendidikan dan Kebudayaan. Dalam kegiatan pembelajaran, sekolah yang memiliki 330 siswa ini dibimbing oleh 17 guru yang profesional di bidangnya. Kepala Sekolah SDIT
+                    ABDURRAHMAN BIN AUF saat ini adalah Kasmini Saptorini. Operator yang bertanggung jawab adalah Kasmini Saptorini. Dengan adanya keberadaan SDIT ABDURRAHMAN BIN AUF, diharapkan dapat memberikan kontribusi dalam mencerdaskan anak bangsa
+                    di wilayah Kec. Tambun Utara, Kab. Bekasi.</p>
+
+                <div class="info-section" style="margin-top: 25px;">
+                    <h3 style="font-weight: bold; background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+                        Akreditasi dan Sertifikasi SDIT ABDURRAHMAN BIN AUF</h3>
+                    <p>Sekolah ini telah terakreditasi A dengan Nomor SK Akreditasi 1442/BAN-SM/SK/2019 pada tanggal 12 Desember 2019.</p>
+                </div>
+
+                <div class="highlight" style="margin-top: 25px;">
+                    <p class="highlight-text">Peserta Didik SDIT ABDURRAHMAN BIN AUF</p>
+                    <p>Pada saat artikel ini ditulis, SDIT ABDURRAHMAN BIN AUF memiliki total 330 siswa yang terdiri dari 170 siswa laki-laki dan 160 siswa perempuan, di mana jumlah siswa laki-laki lebih banyak dari siswa perempuan.</p>
+                </div>
+
+                <!-- HIGHLIGHT2 YANG BARU -->
+                <div class="highlight2" style="margin-top: 25px;">
+                    <p class="highlight-text2">Alamat SDIT ABDURRAHMAN BIN AUF</p>
+                    <p>Alamat SDIT ABDURRAHMAN BIN AUF terletak di Kavling Karang Sambung No. 9 RT.001 / RW.009, Karangsatria, Kec. Tambun Utara, Kab. Bekasi, Jawa Barat,</p>
+
+                    <p>yang terletak di Kavling Karang Sambung No. 9 RT.001 / RW.009, Karangsatria, Kec. Tambun Utara, Kab. Bekasi, Jawa Barat.
+                    </p>
+                </div>
+
+                <!-- HIGHLIGHT2 TAMBAHAN LAINNYA -->
+                <div class="highlight3" style="margin-top: 25px;">
+                    <p class="highlight-text3">Website SDIT ABDURRAHMAN BIN AUF</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABEL INFORMASI LENGKAP -->
+        <div class="table-container">
+            <h2 class="table-title">Informasi Lengkap SDIT ABDURRAHMAN BIN AUF</h2>
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>INFORMASI</th>
+                        <th>DETAIL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>NPSN</td>
+                        <td>69978860</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Sekolah</td>
+                        <td>SDIT ABDURRAHMAN BIN AUF</td>
+                    </tr>
+                    <tr>
+                        <td>Naungan</td>
+                        <td>Kementerian Pendidikan dan Kebudayaan</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Berdiri</td>
+                        <td>26 Februari 2013</td>
+                    </tr>
+                    <tr>
+                        <td>No. SK Pendirian</td>
+                        <td>AHU-689.AH.01.04. Tahun 2013</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Operasional</td>
+                        <td>6 Maret 2018</td>
+                    </tr>
+                    <tr>
+                        <td>No. SK Operasional</td>
+                        <td>503.15/019/II/SK-SDIT/DPMPTSP/2018</td>
+                    </tr>
+                    <tr>
+                        <td>Jenjang Pendidikan</td>
+                        <td>SD</td>
+                    </tr>
+                    <tr>
+                        <td>Status Sekolah</td>
+                        <td>Swasta</td>
+                    </tr>
+                    <tr>
+                        <td>Akreditasi</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Akreditasi</td>
+                        <td>12 Desember 2019</td>
+                    </tr>
+                    <tr>
+                        <td>No. SK Akreditasi</td>
+                        <td>1442/BAN-SM/SK/2019</td>
+                    </tr>
+                    <tr>
+                        <td>Sertifikasi</td>
+                        <td>Belum Bersertifikat</td>
+                    </tr>
+                    <tr>
+                        <td>Alamat</td>
+                        <td>Kavling Karang Sambung No. 9 RT.001 / RW.009</td>
+                    </tr>
+                    <tr>
+                        <td>Desa / Kelurahan</td>
+                        <td>Karangsatria</td>
+                    </tr>
+                    <tr>
+                        <td>Kecamatan / Kota(LN)</td>
+                        <td>Kec. Tambun Utara</td>
+                    </tr>
+                    <tr>
+                        <td>Kab. / Kota / Negara (LN)</td>
+                        <td>Kab. Bekasi</td>
+                    </tr>
+                    <tr>
+                        <td>Provinsi / LN</td>
+                        <td>Jawa Barat</td>
+                    </tr>
+                    <tr>
+                        <td>No Telepon</td>
+                        <td>-</td>
+                    </tr>
+
+                    <!-- TOMBOL KIRIM EMAIL LANGSUNG -->
+                    <td>-</td>
+                    </tr>
+                    <div class="email-button-container">
+                        <td>Email</td>
+                        <h2 class="email-button-title">Kirim Ulasan & Pertanyaan</h2>
+                        <p class="email-button-description">
+                            </tr>
+                            Klik tombol di bawah untuk langsung membuka halaman Gmail (Google Mail) untuk mengirim email kepada sekolah. Alamat email tujuan sudah terisi otomatis.
+                        </p>
+                        <td>www.Web Abdurrahman Bin Auf.Com</td>
+
+                        <button class="btn-kirim-email" id="kirimEmailBtn">BUKA GMAIL UNTUK KIRIM EMAIL</button>
+                        <td>Kepala Sekolah</td>
+                        <td>Kasmini Saptorini</td>
+
+                        <p class="email-notice">
+                            <td>Operator</td>
+                            * Email akan dikirim ke: abdurrahmanbinauf@gmail.com
+                        </p>
+                </tbody>
+                </div>
+
+                <div class="highlight4" style="margin-top: 25px; text-align: center;">
+                    <p class="highlight-text4">Hubungkan Langsung Dengan Kontak WhatsApp nya</p>
+
+
+                    <!-- Teks di bawah tombol -->
+                    <p style="margin-top: 10px; font-weight: bold;">Klik logo WhatsApp nya</p>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Ambil elemen tombol dan halaman
+        const masukButton = document.querySelector('.btn-masuk');
+        const newPage = document.getElementById('newPage');
+        const backButton = document.getElementById('backButton');
+        const kirimEmailBtn = document.getElementById('kirimEmailBtn');
+
+        // Email tujuan yang baru
+        const TUJUAN_EMAIL = 'abdurrahmanbinauf@gmail.com';
+        const SUBJECT_EMAIL = 'Ulasan dan Pertanyaan Mengenai SDIT Abdurrahman Bin Auf';
+
+        // Body email dengan template yang lebih baik
+        const BODY_EMAIL = `Kepada Yth. SDIT Abdurrahman Bin Auf,
+
+Saya ingin memberikan ulasan/mengajukan pertanyaan mengenai sekolah.
+
+[Silakan tulis pesan Anda di sini]
+
+Terima kasih atas perhatiannya.
+
+Hormat saya,
+
+---
+Email ini dikirim melalui website SDIT Abdurrahman Bin Auf
+Tanggal: ${new Date().toLocaleDateString('id-ID', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+})}`;
+
+        // Tambahkan interaksi pada tombol MASUK
+        masukButton.addEventListener('click', function() {
+            // Tambahkan animasi loading
+            this.classList.add('loading');
+            this.innerHTML = " MEMUAT... ";
+
+            // Tunggu 1.5 detik untuk efek loading
+            setTimeout(() => {
+                // Hapus kelas loading
+                this.classList.remove('loading');
+
+                // Animasi fade out untuk halaman saat ini
+                const elementsToFade = document.querySelectorAll('h1, .logoaba, .button-container, .bg-circle');
+                elementsToFade.forEach(element => {
+                    element.style.animation = 'fadeOut 0.8s ease forwards';
+                });
+
+                // Tunggu animasi fade out selesai
+                setTimeout(() => {
+                    // Sembunyikan elemen halaman pertama
+                    elementsToFade.forEach(element => {
+                        element.style.display = 'none';
+                    });
+
+                    // Tampilkan halaman baru
+                    newPage.style.display = 'flex';
+
+                    // Reset tombol teks
+                    this.innerHTML = "MASUK ";
+
+                    // Scroll ke atas halaman baru
+                    newPage.scrollTop = 0;
+                }, 800);
+            }, 1500);
+        });
+
+        // Tambahkan interaksi pada tombol KEMBALI
+        backButton.addEventListener('click', function() {
+            // Animasi keluar untuk halaman kedua
+            newPage.style.animation = 'pageTransitionOut 0.8s ease forwards';
+
+            // Tunggu animasi selesai
+            setTimeout(() => {
+                // Sembunyikan halaman kedua
+                newPage.style.display = 'none';
+                newPage.style.animation = 'pageTransitionIn 1s ease-out forwards';
+
+                // Tampilkan kembali halaman pertama
+                const elementsToShow = document.querySelectorAll('h1, .logoaba, .button-container, .bg-circle');
+                elementsToShow.forEach(element => {
+                    element.style.display = '';
+                    element.style.animation = 'fadeIn 0.8s ease forwards';
+                });
+            }, 800);
+        });
+
+        // Fungsi untuk membuka Gmail langsung
+        function bukaGmailLangsung() {
+            // Encode subject dan body untuk URL
+            const subjectEncoded = encodeURIComponent(SUBJECT_EMAIL);
+            const bodyEncoded = encodeURIComponent(BODY_EMAIL);
+
+            // URL Gmail compose dengan parameter
+
+            // Tampilkan konfirmasi dengan opsi
+            const userChoice = confirm(
+                'Pilih cara pengiriman email:\n\n' +
+                'Klik "OK" untuk membuka Gmail di tab baru (rekomendasi)\n' +
+                'Klik "Batal" untuk membuka aplikasi email default Anda\n\n' +
+                'Email akan dikirim ke: ' + TUJUAN_EMAIL
+            );
+
+            if (userChoice) {
+                // Buka Gmail di tab baru
+                window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+
+                // Tampilkan petunjuk setelah membuka Gmail
+                setTimeout(() => {
+                    alert(
+                        'Halaman Gmail telah dibuka di tab baru.\n\n' +
+                        'Jika Anda belum login ke Gmail, silakan login terlebih dahulu.\n' +
+                        'Setelah login, email akan siap dikirim dengan:\n' +
+                        '- Penerima: ' + TUJUAN_EMAIL + '\n' +
+                        '- Subject dan pesan sudah terisi otomatis\n\n' +
+                        'Tinjau dan edit pesan jika diperlukan, lalu klik "Kirim".'
+                    );
+                }, 1500);
+            } else {
+                // Buka aplikasi email default (fallback)
+                const mailtoLink = `mailto:${TUJUAN_EMAIL}?subject=${subjectEncoded}&body=${bodyEncoded}`;
+                window.location.href = mailtoLink;
+
+                setTimeout(() => {
+                    alert(
+                        'Membuka aplikasi email default Anda.\n\n' +
+                        'Jika email tidak terbuka, pastikan Anda memiliki aplikasi email yang terpasang.'
+                    );
+                }, 1000);
+            }
+        }
+
+        // Event listener untuk tombol kirim email
+        kirimEmailBtn.addEventListener('click', function() {
+            // Tambahkan efek loading sementara
+            const originalText = this.innerHTML;
+            this.innerHTML = "MEMBUKA GMAIL...";
+            this.disabled = true;
+
+            // Buka Gmail
+            bukaGmailLangsung();
+
+            // Reset tombol setelah 3 detik
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                this.disabled = false;
+            }, 3000);
+        });
+
+        // Efek tambahan saat hover tombol MASUK
+        masukButton.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('loading')) {
+                this.style.transform = 'translateY(-8px) scale(1.08)';
+            }
+        });
+
+        masukButton.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('loading')) {
+                this.style.transform = 'translateY(0) scale(1)';
+            }
+        });
+
+        // Efek tambahan saat hover tombol KIRIM EMAIL
+        kirimEmailBtn.addEventListener('mouseenter', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            }
+        });
+
+        kirimEmailBtn.addEventListener('mouseleave', function() {
+            if (!this.disabled) {
+                this.style.transform = 'translateY(0) scale(1)';
+            }
+        });
+
+        // Animasi tambahan untuk lingkaran background halaman pertama
+        const circles = document.querySelectorAll('.bg-circle');
+        circles.forEach(circle => {
+            const randomDelay = Math.random() * 5;
+            const randomDuration = 15 + Math.random() * 10;
+            circle.style.animationDelay = `${randomDelay}s`;
+            circle.style.animationDuration = `${randomDuration}s`;
+        });
+
+        // Animasi tambahan untuk lingkaran background halaman kedua
+        const newCircles = document.querySelectorAll('.new-page-circle');
+        newCircles.forEach(circle => {
+            const randomDelay = Math.random() * 8;
+            const randomDuration = 18 + Math.random() * 15;
+            circle.style.animationDelay = `${randomDelay}s`;
+            circle.style.animationDuration = `${randomDuration}s`;
+        });
+
+        // Efek hover untuk baris tabel
+        const tableRows = document.querySelectorAll('.info-table tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.zIndex = '1';
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+</html>
