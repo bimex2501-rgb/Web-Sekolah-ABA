@@ -1008,6 +1008,7 @@
                 <!-- HIGHLIGHT2 TAMBAHAN LAINNYA -->
                 <div class="highlight3" style="margin-top: 25px;">
                     <p class="highlight-text3">Website SDIT ABDURRAHMAN BIN AUF</p>
+                    <p>Anda bisa mendapatkan update informasi terbaru terkait dengan kegiatan akademik dan non-akademik yang dilaksanakan oleh SDIT ABDURRAHMAN BIN AUF melalui website resmi SDIT ABDURRAHMAN BIN AUF dengan alamat www.sitabdurrahmanbinauf.com.</p>
                 </div>
             </div>
         </div>
@@ -1099,37 +1100,55 @@
                         <td>No Telepon</td>
                         <td>-</td>
                     </tr>
-
-                    <!-- TOMBOL KIRIM EMAIL LANGSUNG -->
-                    <td>-</td>
+                    <tr>
+                        <td>Fax</td>
+                        <td>-</td>
                     </tr>
-                    <div class="email-button-container">
+                    <tr>
                         <td>Email</td>
-                        <h2 class="email-button-title">Kirim Ulasan & Pertanyaan</h2>
-                        <p class="email-button-description">
-                            </tr>
-                            Klik tombol di bawah untuk langsung membuka halaman Gmail (Google Mail) untuk mengirim email kepada sekolah. Alamat email tujuan sudah terisi otomatis.
-                        </p>
-                        <td>www.Web Abdurrahman Bin Auf.Com</td>
-
-                        <button class="btn-kirim-email" id="kirimEmailBtn">BUKA GMAIL UNTUK KIRIM EMAIL</button>
+                        <!-- Email sekolah diubah -->
+                        <td>abdurrahmanbinauf@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>Website</td>
+                        <td>www.sitabdurrahmanbinauf.com</td>
+                    </tr>
+                    <tr>
                         <td>Kepala Sekolah</td>
                         <td>Kasmini Saptorini</td>
-
-                        <p class="email-notice">
-                            <td>Operator</td>
-                            * Email akan dikirim ke: abdurrahmanbinauf@gmail.com
-                        </p>
+                    </tr>
+                    <tr>
+                        <td>Operator</td>
+                        <td>Kasmini Saptorini</td>
+                    </tr>
                 </tbody>
-                </div>
+            </table>
 
-                <div class="highlight4" style="margin-top: 25px; text-align: center;">
-                    <p class="highlight-text4">Hubungkan Langsung Dengan Kontak WhatsApp nya</p>
+            <!-- TOMBOL KIRIM EMAIL LANGSUNG -->
+            <div class="email-button-container">
+                <h2 class="email-button-title">Kirim Ulasan & Pertanyaan</h2>
+                <p class="email-button-description">
+                    Klik tombol di bawah untuk langsung membuka halaman Gmail (Google Mail) untuk mengirim email kepada sekolah. Alamat email tujuan sudah terisi otomatis.
+                </p>
 
+                <button class="btn-kirim-email" id="kirimEmailBtn">BUKA GMAIL UNTUK KIRIM EMAIL</button>
 
-                    <!-- Teks di bawah tombol -->
-                    <p style="margin-top: 10px; font-weight: bold;">Klik logo WhatsApp nya</p>
-                </div>
+                <p class="email-notice">
+                    * Email akan dikirim ke: abdurrahmanbinauf@gmail.com
+                </p>
+            </div>
+
+            <div class="highlight4" style="margin-top: 25px; text-align: center;">
+                <p class="highlight-text4">Hubungkan Langsung Dengan Kontak WhatsApp nya</p>
+
+                <!-- Tombol WhatsApp -->
+                <a href="https://wa.me/6285693183191?text=Assalamualaikum%20Pak!%20Halo%20Pak%20Apakah%20saya%20Boleh%20Bertanya%20Kepada%20Bapak%20Tentang%20Sekolah%20Abdurrahman%20Bin%20Auf" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:80px; height:80px; cursor:pointer;">
+                </a>
+
+                <!-- Teks di bawah tombol -->
+                <p style="margin-top: 10px; font-weight: bold;">Klik logo WhatsApp nya</p>
+            </div>
         </div>
     </div>
 
@@ -1229,6 +1248,7 @@ Tanggal: ${new Date().toLocaleDateString('id-ID', {
             const bodyEncoded = encodeURIComponent(BODY_EMAIL);
 
             // URL Gmail compose dengan parameter
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${TUJUAN_EMAIL}&su=${subjectEncoded}&body=${bodyEncoded}`;
 
             // Tampilkan konfirmasi dengan opsi
             const userChoice = confirm(
@@ -1338,41 +1358,4 @@ Tanggal: ${new Date().toLocaleDateString('id-ID', {
     </script>
 </body>
 
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
-
-</html>
 </html>
